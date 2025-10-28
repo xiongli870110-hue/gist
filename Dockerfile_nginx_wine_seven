@@ -1,0 +1,115 @@
+# === 构建阶段：安装 pip、依赖、编译 nginx ===
+FROM debian:12-slim AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装 pip 所需依赖 + nginx 编译依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl python3-distutils ca-certificates \
+    build-essential libpcre3-dev zlib1g-dev libssl-dev wget \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# 安装 pip 并安装依赖
+COPY requirements.txt .
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    python3 get-pip.py --break-system-packages && \
+    rm get-pip.py && \
+    pip3 install --no-cache-dir -r requirements.txt --break-system-packages && \
+    pip3 cache purge
+
+# 编译 nginx 并安装到 /opt/nginx
+RUN wget https://nginx.org/download/nginx-1.25.2.tar.gz && \
+    tar -xzf nginx-1.25.2.tar.gz && \
+    cd nginx-1.25.2 && \
+    ./configure --prefix=/opt/nginx --with-http_ssl_module --with-http_stub_status_module && \
+    make && make install && \
+    cd .. && rm -rf nginx-1.25.2 nginx-1.25.2.tar.gz
+
+# === 运行阶段：精简系统 + 拷贝 pip/nginx/cloudflared ===
+FROM debian:12-slim
+
+LABEL maintainer="mail@raker.eu.org"
+LABEL version="1.0.7-duo"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装运行所需工具（不含构建工具）
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl wget bash coreutils procps logrotate nano net-tools msmtp msmtp-mta jq \
+    cron rsyslog tzdata yq busybox ca-certificates netcat-openbsd dnsutils \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# 设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone
+
+# 创建用户和目录
+RUN useradd -m -s /bin/bash appuser && \
+    mkdir -p /tmp /tmp/logs /usr/local/bin && \
+    chown -R appuser:appuser /tmp /usr/local/bin
+
+WORKDIR /tmp
+
+# ✅ 拷贝 pip 可执行文件和模块（假定 Python 版本为 3.11）
+COPY --from=builder /usr/local/bin/pip /usr/local/bin/pip
+COPY --from=builder /usr/local/bin/pip3 /usr/local/bin/pip3
+COPY --from=builder /usr/local/lib/python3.11/dist-packages /usr/local/lib/python3.11/dist-packages
+
+# ✅ 拷贝 nginx 可执行文件和配置
+COPY --from=builder /opt/nginx /opt/nginx
+ENV PATH="/opt/nginx/sbin:$PATH"
+
+# 下载并安装 sing-box 1.12.8（硬编码 amd64）
+RUN curl -L https://github.com/SagerNet/sing-box/releases/download/v1.12.8/sing-box-1.12.8-linux-amd64.tar.gz -o /tmp/sing-box.tar.gz && \
+    tar -xzf /tmp/sing-box.tar.gz -C /usr/local/bin --strip-components=1 && \
+    chmod +x /usr/local/bin/sing-box && \
+    rm -rf /tmp/sing-box.tar.gz
+
+# 下载 cloudflared 2025.9.1（硬编码 amd64）
+RUN curl -L -o /usr/local/bin/cloudflared https://github.com/cloudflare/cloudflared/releases/download/2025.9.1/cloudflared-linux-amd64 && \
+    chmod +x /usr/local/bin/cloudflared
+
+# 配置日志
+RUN echo "cron.* /tmp/logs/cron.log" >> /etc/rsyslog.conf && \
+    sed -i 's/module(load="imklog")/#module(load="imklog")/' /etc/rsyslog.conf
+
+COPY logrotate.conf /etc/logrotate.d/cloudflared
+
+# 拷贝所有脚本到工作目录
+COPY *.sh /tmp/
+COPY seven.sh.sap.bak /tmp/seven1.sh
+
+RUN chmod +x /tmp/*.sh && \
+    chown appuser:appuser /tmp/*.sh
+
+# 配置 crontab
+COPY crontab.root /etc/cron.d/root-cron
+RUN chmod 0644 /etc/cron.d/root-cron
+
+COPY crontab.appuser /tmp/crontab.appuser
+RUN chmod 0644 /tmp/crontab.appuser && \
+    crontab -u appuser /tmp/crontab.appuser
+
+# 日志目录和权限
+RUN mkdir -p /tmp/logs && touch /tmp/logs/cron.log && chmod 644 /tmp/logs/cron.log && \
+    chown -R appuser:appuser /tmp/logs
+
+# 拷贝导航页资源
+COPY conf.yml *.html *.jpg generate_nav.py /tmp/navpage/
+COPY icons/ /tmp/navpage/icons/
+RUN chown -R appuser:appuser /tmp/navpage && chmod -R 755 /tmp/navpage
+
+# 默认环境变量
+ENV uuid="" token="" domain=""
+
+# 暴露端口
+EXPOSE 2777 7860 8080
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=5 \
+  CMD pgrep -x cron >/dev/null && pgrep -x rsyslogd >/dev/null && nc -z localhost 7860 || exit 1
+
+# 启动入口
+CMD ["/tmp/entrypoint.sh"]
