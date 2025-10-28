@@ -1,4 +1,5 @@
 index.html
+mm_duo_user.html
 conf.yml
 generate_nav.py
 jianli.html
