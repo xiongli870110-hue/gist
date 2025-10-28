@@ -97,6 +97,7 @@ RUN mkdir -p /tmp/logs && touch /tmp/logs/cron.log && chmod 644 /tmp/logs/cron.l
     chown -R appuser:appuser /tmp/logs
 
 # 拷贝导航页资源
+COPY nginx.conf /opt/nginx/conf/nginx.conf
 COPY conf.yml *.html *.jpg generate_nav.py /tmp/navpage/
 COPY icons/ /tmp/navpage/icons/
 RUN chown -R appuser:appuser /tmp/navpage && chmod -R 755 /tmp/navpage
@@ -105,7 +106,7 @@ RUN chown -R appuser:appuser /tmp/navpage && chmod -R 755 /tmp/navpage
 ENV uuid="" token="" domain=""
 
 # 暴露端口
-EXPOSE 2777 7860 8080
+EXPOSE 2777 7860 8080 8081
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=5 \
