@@ -38,7 +38,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # 安装运行所需工具（不含构建工具）
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget bash coreutils procps logrotate nano net-tools msmtp msmtp-mta jq \
-    cron rsyslog tzdata yq busybox ca-certificates netcat-openbsd dnsutils \
+    cron rsyslog tzdata yq busybox ca-certificates netcat-openbsd dnsutils file \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 设置时区
