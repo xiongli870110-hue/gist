@@ -7,3 +7,4 @@ hf_http_private.sh
 fetch_icons.sh
 update_hosts.sh
 txt_to_html.sh
+download_from_github_gist_private_html.sh
