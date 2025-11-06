@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>付瑞军主页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 标签页图标 -->
+  <link rel="icon" href="icons/rake.ico" type="image/x-icon">
+  <style>
+    body { font-family: sans-serif; margin: 0; background: #f4f6f9; color: #333; }
+    header {
+      background: #2563eb;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center; /* 确保图标与文字垂直居中 */
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    header img { /* 图标样式 */
+      width: 30px; /* 设置图标大小 */
+      height: 30px;
+      margin-right: 10px; /* 图标与文字之间的间隔 */
+    }
+    .container { max-width: 1200px; margin: auto; padding: 2rem; }
+    h2 { border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; margin-top: 2rem; font-size: 1.3rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
+    .card { background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; }
+    .card:hover { transform: translateY(-4px); }
+    .card a { text-decoration: none; color: inherit; display: block; }
+    .card-title { display: flex; align-items: center; font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .card-title img { width: 20px; height: 20px; margin-right: 0.5rem; }
+    .card-desc { font-size: 0.9rem; color: #555; white-space: pre-wrap; }
+    pre { background: #f9fafb; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+    code { font-family: monospace; font-size: 0.9rem; }
+    footer { margin-top: 2rem; text-align: center; color: #666; font-size: 0.9rem; }
+    .nav-link { margin: 1rem 0; }
+    .nav-link-1 a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+      display: inline-block;
+      margin-right: 1.5rem;
+    }
+    .nav-link-1 a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #2563eb;
+      transition: width 0.3s ease-in-out;
+    }
+    .nav-link-1 a:hover::after { width: 100%; }
+    .nav-link-1 a:hover { color: #1e40af; }
+    .nav-link-2 a {
+      color: #e11d48;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .nav-link-2 a:hover { background-color: #fce7f3; color: #9f1239; }
+    .nav-link-3 a {
+      color: #059669;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem;
+      transition: transform 0.2s;
+    }
+    .nav-link-3 a::before {
+      content: '➔';
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+    .nav-link-3 a:hover { transform: translateX(5px); }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="icons/rake.ico" alt="图标"> <!-- 在header中插入图标 -->
+    <h1>付瑞军主页</h1> <!-- 文字部分 -->
+  </header>
+
+  <div class="container">
+    <h2>项目意义</h2>
+    <p>本项目是一个轻量级的导航页生成工具，旨在通过简单的 YAML 配置文件（<code>conf.yml</code>）动态生成美观的导航页面。用户可以轻松管理常用链接，并通过 Docker 容器和 Cloudflare 固定隧道实现本地或公网访问。</p>
+
+    <h2>图标设计细节</h2>
+    <p>图标采用简化的熊猫脸部图案，底部新增的熊猫脸部以几何方式呈现，耳朵、眼斑与鼻部以黑白配色设计，富有辨识度但不具象。图案下方有象征着支持的设计，寓意着我妻子对项目的坚实支持与托举。整体风格仍保持扁平化设计，使用蓝白主调并加入黑白点缀，确保视觉平衡且富有情感深度。</p>
+
+    <div class="nav-link nav-link-1">
+      <a href="nav.html">访问我的个人导航页</a>
+      <a href="jianli.html">个人简历</a>
+      <a href="entrypoint.log.html">entrypoint日志</a>
+      <a href="cron.log.html">cron日志</a>
+      <a href="deletion_audit.log.html">deletion_audit日志</a>
+      <a href="hfactive_private.log.html">hfactive_private日志</a>
+      <a href="hf_http_public.log.html">hf_http_public日志</a>
+      <a href="download_from_github_navpage.log.html">dl_navpage日志</a>
+      <a href="download_from_github_private_html.log.html">dl_private_html日志</a>
+      <a href="download_from_github_tmp.log.html">dl_tmp日志</a>
+      <a href="github_push.html">Github推送教程</a>
+      <a href="github_token.html">Github推送token</a>
+      <a href="crontab.html">定时任务配置</a>
+      <a href="logrotate_status.html">日志轮转配置</a>
+      <a href="/private_html/index.html">私有资源</a>
+      <a href="/rss_news.html">RSS新闻</a>
+      <a href="/private_html/v2raya_offline_install.html">v2rayA离线部署</a>
+      <a href="domains.html">domains.txt</a>
+    </div>
+
+    <h2>功能特点</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title"><img src="icons/python.ico" alt="icon">动态生成</div>
+        <div class="card-desc">通过 Python 脚本从 <code>conf.yml</code> 生成响应式 HTML 页面，支持自定义标题、链接和图标。</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><img src="icons/docker.ico" alt="icon">Docker 部署</div>
+        <div class="card-desc">使用 Docker 容器化部署，集成 HTTP 服务器，确保环境一致性和快速启动。</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><img src="icons/cloudflare.ico" alt="icon">公网访问</div>
+        <div class="card-desc">通过 Cloudflare 固定隧道，实现安全、可靠的公网访问。</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><img src="icons/dpdns.ico" alt="icon">易于配置</div>
+        <div class="card-desc">使用 YAML 文件管理导航链接，结构清晰，支持多组链接和描述。</div>
+      </div>
+    </div>
+
+    <h2>使用方法</h2>
+    <ol>
+      <li>
+        <strong>准备配置文件</strong><br>
+        编辑 <code>conf.yml</code>，定义导航页标题和链接。
+        <pre><code>title: 我的导航页面
+groups:
+  - name: 常用工具
+    links:
+      - name: Google
+        url: https://www.google.com
+        icon: https://www.google.com/favicon.ico
+        desc: 搜索引擎
+      - name: GitHub
+        url: https://github.com
+        icon: https://github.com/favicon.ico
+        desc: 代码托管平台</code></pre>
+      </li>
+
+      <li>
+        <strong>构建 Docker 镜像</strong><br>
+        <pre><code>docker build --no-cache -t my-nav-image .</code></pre>
+      </li>
+
+      <li>
+        <strong>运行容器</strong><br>
+        <pre><code>docker run -d --restart=unless-stopped -p 8080:8080 --name my-nav-container my-nav-image</code></pre>
+      </li>
+
+      <li>
+        <strong>访问导航页</strong><br>
+        <span class="nav-link-2"><a href="index.html">http://localhost:8080</a></span>（主页）
+        <span class="nav-link-2"><a href="nav.html">http://localhost:8080/nav.html</a></span>（导航页）
+      </li>
+
+      <li>
+        <strong>更新导航内容</strong><br>
+        修改 <code>conf.yml</code> 后，重新运行脚本，或使用以下常用命令合集：
+        <div class="card" style="margin-top:1rem;">
+          <div class="card-title">
+            <img src="icons/docker.ico" alt="icon">常用命令合集
+          </div>
+          <div class="card-desc">
+<pre><code># 进入容器
+docker exec -it wine bash
+
+# 激活 / 退出 Python 虚拟环境
+source /tmp/venv/bin/activate
+. /tmp/venv/bin/activate
+deactivate
+
+# 修改文件权限
+chown appuser:appuser /tmp/hfactive_private.py
+chmod 664 /tmp/navpage/generate_nav.py
+chmod +x /tmp/run_nav_update.sh
+
+# 递归修改目录属主与权限
+chown -R appuser:appuser /tmp/navpage
+chmod -R u+rwX,go+rX /tmp/navpage
+
+# 查看日志
+cat /tmp/logs/hfactive.log
+cat /var/log/cron.log
+
+# 定时任务管理
+crontab -u appuser -l
+crontab -u appuser -e
+
+# 测试文件
+python /tmp/navpage/generate_nav.py
+单次测试文件：su - appuser -c "python3 /tmp/navpage/private_html/generate_portal_config.py"
+              su - appuser -c "python3 /tmp/navpage/private_html/rss_news.py"
+单次测试.sh脚本：su - appuser -c "bash /tmp/run_nav_update.sh"
+                 su - appuser -c "bash /tmp/wedav.sh"
+                 su - appuser -c "bash /tmp/wedav_sub.sh"
+                 su - appuser -c "bash /tmp/txt_to_html.sh"
+
+# 写入文件（保持权限与属主）
+cat /tmp/lun.txt | tee /etc/logrotate.d/cloudflared > /dev/null
+rm /tmp/navpage/index.html.txt
+nano /tmp/navpage/index.html.txt
+cat /tmp/navpage/index.html.txt | tee /tmp/navpage/index.html > /dev/null
+
+rm /tmp/navpage/conf.yml.txt
+nano /tmp/navpage/conf.yml.txt
+cat /tmp/navpage/conf.yml.txt | tee /tmp/navpage/conf.yml > /dev/null
+
+rm /tmp/fetch_icons.sh.txt
+nano /tmp/fetch_icons.sh.txt
+cat /tmp/fetch_icons.sh.txt | tee /tmp/fetch_icons.sh > /dev/null
+su - appuser -c "bash /tmp/fetch_icons.sh"
+
+rm /tmp/txt_to_html.sh.txt
+nano /tmp/txt_to_html.sh.txt
+cat /tmp/txt_to_html.sh.txt | tee /tmp/txt_to_html.sh > /dev/null
+su - appuser -c "bash /tmp/txt_to_html.sh"
+cat /tmp/logs/txt_to_html.log
+
+rm /tmp/update_hosts.sh.txt
+nano /tmp/update_hosts.sh.txt
+cat /tmp/update_hosts.sh.txt | tee /tmp/update_hosts.sh > /dev/null
+su - appuser -c "bash /tmp/update_hosts.sh"
+
+rm /tmp/hf_http_private.sh.txt
+nano /tmp/hf_http_private.sh.txt
+cat /tmp/hf_http_private.sh.txt | tee /tmp/hf_http_private.sh > /dev/null
+su - appuser -c "bash /tmp/hf_http_private.sh"
+cat /tmp/logs/hfactive_private.log
+
+rm /tmp/download_from_github_gist_navpage.sh.txt
+nano /tmp/download_from_github_gist_navpage.sh.txt
+cat /tmp/download_from_github_gist_navpage.sh.txt | tee /tmp/download_from_github_gist_navpage.sh > /dev/null
+su - appuser -c "bash /tmp/download_from_github_gist_navpage.sh"
+
+rm /tmp/download_from_github_gist_tmp.sh.txt
+nano /tmp/download_from_github_gist_tmp.sh.txt
+cat /tmp/download_from_github_gist_tmp.sh.txt | tee /tmp/download_from_github_gist_tmp.sh > /dev/null
+su - appuser -c "bash /tmp/download_from_github_gist_tmp.sh"
+
+# Nginx修改配置文件
+rm /tmp/nginx.conf.txt
+nano /tmp/nginx.conf.txt
+cat /tmp/nginx.conf.txt | tee /etc/nginx/nginx.conf > /dev/null
+nginx -s reload
+sudo netstat -tulnp | grep :80
+sudo ss -tulnp | grep nginx
+sudo netstat -tulnp | grep apache
+sudo netstat -tulnp | grep nginx
+/opt/nginx/nginx -s reload -c /opt/nginx/conf/nginx.conf
+curl -v http://0.0.0.0:10002/
+
+# 压缩与解压缩
+你可以使用以下命令将 /opt/v2ray-tmp 目录打包为 .tar.gz 压缩包，并将压缩包保存在 /opt/ 目录下：
+tar -czvf /opt/v2ray-tmp.tar.gz -C /opt v2ray-tmp
+你可以使用以下命令将 /opt/v2ray-tmp.tar.gz 解压到指定目录（用-C指定） /opt/ 下：
+tar -xzvf /opt/v2ray-tmp.tar.gz -C /opt
+执行后会将 /opt/v2ray-quote.tar.gz 中的内容解压到当前目录，并在终端逐行显示每个文件名。例如：
+tar -xzvf /opt/v2ray-quote.tar.gz
+
+# 常用数据地址
+https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt
+  
+# 修复中文注释乱码
+iconv -f GBK -t UTF-8 install_engine_and_compose.sh -o fixed.sh
+mv fixed.sh install_engine_and_compose.sh
+
+dos2unix install_engine_and_compose.sh
+
+sed -i 's/\r$//' install_engine_and_compose.sh
+
+chmod +x install_engine_and_compose.sh
+
+# 更新GFW列表
+https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt
+  
+# 搜索引用
+grep -r "index.html" /tmp/*.sh /tmp/navpage/*.py
+</code></pre>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <h2>联系与支持</h2>
+    <ul>
+      <li>GitHub: <span class="nav-link-3"><a href="https://github.com/rakersfu" target="_blank">提交问题</a></span></li>
+      <li>Email: <span class="nav-link-3"><a href="mailto:mail@raker.eu.org">mail@raker.eu.org</a></span></li>
+    </ul>
+
+    <footer>
+      <p>&copy; 2025 导航页项目 | 基于 Python 与 Docker | Powered by Fu RuiJun</p>
+    </footer>
+  </div>
+
+</body>
+</html>
