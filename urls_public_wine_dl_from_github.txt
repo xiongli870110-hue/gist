@@ -1,4 +1,5 @@
 PUBLIC https://rakersfu-n8n.hf.space
+PUBLIC https://rakersfu-cron.hf.space
 PUBLIC https://rakexiongli-n8n.hf.space
 PUBLIC https://rakexiongli-ttyd.hf.space
 PUBLIC https://rakersfu-panel.hf.space/app
