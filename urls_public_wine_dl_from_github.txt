@@ -1,7 +1,4 @@
 PUBLIC https://rakersfu-n8n.hf.space
 PUBLIC https://rakersfu-cron.hf.space
-PUBLIC https://rakexiongli-n8n.hf.space
-PUBLIC https://rakexiongli-ttyd.hf.space
 PUBLIC https://rakersfu-panel.hf.space/app
 PUBLIC https://huggingface.co/spaces/rakersfu/onetts/tree/main
-PUBLIC https://huggingface.co/spaces/rakexiongli/onetts/tree/main
